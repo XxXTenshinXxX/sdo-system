@@ -1,0 +1,216 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #3498db;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Card container - LANDSCAPE STYLE (mas lapad) */
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            /* Mas malapad para sa landscape */
+            padding: 30px 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Gumamit ng FLEXBOX para sa landscape layout */
+        .landscape-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        /* Left side - image/illustration */
+        .left-side {
+            flex: 1;
+            text-align: center;
+        }
+
+        .left-side svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .left-side h3 {
+            font-size: 14px;
+            color: #666;
+            margin-top: 15px;
+            font-weight: normal;
+        }
+
+        /* Right side - form */
+        .right-side {
+            flex: 1;
+        }
+
+        /* Header - small text */
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            /* MAS MALIIT NA TEXT */
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 11px;
+            /* MALIIT NA TEXT */
+        }
+
+        /* Input groups - small text */
+        .input-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+            font-size: 11px;
+            /* MALIIT NA LABEL */
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 8px 12px;
+            /* MAS MALIIT NA PADDING */
+            border: 1.5px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 12px;
+            /* MALIIT NA TEXT SA INPUT */
+            transition: all 0.3s ease;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .input-group input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+        }
+
+        /* Options row - small text */
+        .options {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 18px;
+            font-size: 10px;
+            /* MALIIT NA TEXT */
+        }
+
+        .forgot a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 10px;
+        }
+
+        .forgot a:hover {
+            text-decoration: underline;
+        }
+
+        /* Login button - small text */
+        .login-btn {
+            width: 100%;
+            background-color: #3498db;
+            border: none;
+            padding: 8px 12px;
+            /* MAS MALIIT NA BUTTON */
+            border-radius: 8px;
+            color: white;
+            font-size: 12px;
+            /* MALIIT NA TEXT */
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .login-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.01);
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Sign up link - small text */
+        .signup {
+            text-align: center;
+            font-size: 10px;
+            /* MALIIT NA TEXT */
+            color: #666;
+        }
+
+        .signup a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 10px;
+        }
+
+        .signup a:hover {
+            text-decoration: underline;
+        }
+
+        /* Message area - small text */
+        .message {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 10px;
+            /* MALIIT NA TEXT */
+            min-height: 35px;
+        }
+
+        /* Responsive - kapag naging masyadong maliit ang screen, balik sa vertical */
+        @media (max-width: 650px) {
+            .landscape-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .login-card {
+                max-width: 400px;
+                padding: 25px 20px;
+            }
+
+            .left-side {
+                display: none;
+                /* Itago ang illustration sa mobile */
+            }
+        }
+
+        /* Para sa mga malalaking landscape screen */
+        @media (min-width: 1024px) and (orientation: landscape) {
+            .login-card {
+                max-width: 900px;
+                padding: 35px 50px;
+            }
+
+            .input-group input {
+                padding: 9px 14px;
+                font-size: 13px;
+            }
+        }
