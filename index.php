@@ -11,20 +11,27 @@
 <body>
     <div class="login-card">
         <div class="logo">
+
+            <img src="assets/images/SDO-Logo.png" alt="SDO Logo" class="login-logo">
+
             <h1>Login</h1>
             <p>Welcome back! Please login to continue.</p>
         </div>
 
-        <form id="loginForm">
+        <form id="loginForm" method="POST" action="actions/login-process.php">
             <div class="input-group">
                 <label>Email Address</label>
-                <input type="email" id="email" placeholder="example@email.com" autocomplete="off" required>
+                <input type="email" name="email" id="email" placeholder="example@email.com" autocomplete="off" required>
             </div>
 
-            <div class="input-group">
-                <label>Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
+        <div class="input-group">
+            <label>Password</label>
+            <div class="password-wrapper" style="position: relative;">
+                <input type="password" name="password" id="password" placeholder="Enter your password" required style="padding-right: 40px;">
+                <i id="togglePassword" class="fa-solid fa-eye" 
+                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
             </div>
+        </div>
 
             <div class="options">
                 <div class="forgot">
@@ -39,7 +46,17 @@
     </div>
 
     <script>
-        
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            
+            // Toggle icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
     </script>
 </body>
 </html>

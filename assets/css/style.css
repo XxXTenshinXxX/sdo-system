@@ -79,6 +79,12 @@
             /* MALIIT NA TEXT */
         }
 
+        .login-logo{
+        width: 90px;
+        display: block;
+        margin: 0 auto 10px;
+        }
+
         /* Input groups - small text */
         .input-group {
             margin-bottom: 15px;
