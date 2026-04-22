@@ -14,6 +14,7 @@ unset($_SESSION['login_error'], $_SESSION['old_email']);
     <title>Login</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/images/SDO-Logo.png">
 
 </head>
 <body>

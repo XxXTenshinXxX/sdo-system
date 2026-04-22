@@ -12,6 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Select System</title>
+<link rel="icon" type="image/png" href="assets/images/SDO-Logo.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
     * {
@@ -22,7 +23,8 @@ if (!isset($_SESSION['user_id'])) {
         margin: 0;
         min-height: 100vh;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: #3498db;
+        background: #0f172a;
+        color: #1f2937;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -31,13 +33,12 @@ if (!isset($_SESSION['user_id'])) {
 
     .container {
         width: 100%;
-        max-width: 980px;
+        max-width: 920px;
         background: #ffffff;
         border: 1px solid #dbe4ea;
-        border-radius: 28px;
-        padding: 32px;
-        box-shadow: 0 18px 38px rgba(10, 37, 64, 0.14);
-        color: #1f2937;
+        border-radius: 24px;
+        padding: 32px 28px;
+        box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
     }
 
     .header {
@@ -45,61 +46,69 @@ if (!isset($_SESSION['user_id'])) {
         margin-bottom: 28px;
     }
 
+    .header img {
+        width: 78px;
+        height: 78px;
+        object-fit: contain;
+        margin-bottom: 12px;
+    }
+
     .header h1 {
-        margin: 0 0 8px;
-        font-size: 34px;
-        letter-spacing: 0.4px;
+        margin: 0 0 6px;
+        font-size: 30px;
     }
 
     .header p {
         margin: 0;
-        font-size: 15px;
         color: #6b7280;
+        font-size: 15px;
     }
 
     .cards {
         display: grid;
         grid-template-columns: repeat(2, minmax(240px, 1fr));
-        gap: 22px;
-        margin-bottom: 28px;
+        gap: 18px;
+        margin-bottom: 24px;
     }
 
     .card {
         display: block;
         text-decoration: none;
-        background: #fff;
-        color: #1f2937;
-        border-radius: 22px;
-        padding: 28px 24px;
-        box-shadow: 0 18px 35px rgba(15, 23, 42, 0.16);
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        color: inherit;
+        background: #f9fbff;
+        border: 1px solid #d9e2ec;
+        border-radius: 20px;
+        padding: 24px 22px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
     .card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 24px 40px rgba(15, 23, 42, 0.22);
+        transform: translateY(-4px);
+        border-color: #bfd3ea;
+        box-shadow: 0 14px 24px rgba(15, 23, 42, 0.08);
     }
 
     .card-icon {
-        width: 66px;
-        height: 66px;
-        border-radius: 18px;
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 32px;
-        margin: 0 auto 18px;
-        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+        font-size: 24px;
+        margin-bottom: 16px;
+        background: #dbeafe;
+        color: #1d4ed8;
     }
 
     .card.leave .card-icon {
-        background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+        background: #dcfce7;
+        color: #047857;
     }
 
     .card h2 {
-        margin: 0 0 10px;
+        margin: 0 0 8px;
         font-size: 22px;
-        text-align: center;
     }
 
     .card p {
@@ -107,7 +116,6 @@ if (!isset($_SESSION['user_id'])) {
         color: #4b5563;
         line-height: 1.55;
         font-size: 14px;
-        text-align: center;
     }
 
     .actions {
@@ -118,19 +126,18 @@ if (!isset($_SESSION['user_id'])) {
     .logout-btn {
         border: none;
         border-radius: 999px;
-        padding: 12px 28px;
+        padding: 12px 24px;
         font-size: 14px;
         font-weight: 700;
         color: #fff;
-        background: linear-gradient(135deg, #ef4444, #dc2626);
+        background: #dc2626;
         cursor: pointer;
-        box-shadow: 0 12px 24px rgba(220, 38, 38, 0.28);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: background 0.2s ease, transform 0.2s ease;
     }
 
     .logout-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 16px 28px rgba(220, 38, 38, 0.34);
+        background: #b91c1c;
+        transform: translateY(-1px);
     }
 
     .modal {
@@ -149,23 +156,22 @@ if (!isset($_SESSION['user_id'])) {
 
     .modal-content {
         width: 100%;
-        max-width: 420px;
+        max-width: 400px;
         background: #fff;
         color: #111827;
-        border-radius: 22px;
-        padding: 28px;
+        border-radius: 20px;
+        padding: 26px;
         text-align: center;
-        box-shadow: 0 24px 50px rgba(15, 23, 42, 0.24);
-        animation: modalIn 0.2s ease;
+        box-shadow: 0 24px 50px rgba(15, 23, 42, 0.2);
     }
 
     .modal-content h3 {
         margin: 0 0 12px;
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .modal-content p {
-        margin: 0 0 24px;
+        margin: 0 0 22px;
         color: #4b5563;
         line-height: 1.5;
     }
@@ -196,25 +202,13 @@ if (!isset($_SESSION['user_id'])) {
         color: #fff;
     }
 
-    @keyframes modalIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px) scale(0.98);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-    }
-
     @media (max-width: 700px) {
         .container {
             padding: 24px 18px;
         }
 
         .header h1 {
-            font-size: 28px;
+            font-size: 26px;
         }
 
         .cards {
@@ -230,6 +224,7 @@ if (!isset($_SESSION['user_id'])) {
 <body>
     <div class="container">
         <div class="header">
+            <img src="assets/images/SDO-Logo.png" alt="School Division Office Logo">
             <h1>Select Dashboard</h1>
             <p>Choose which system you want to open.</p>
         </div>
