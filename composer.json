@@ -1,0 +1,7 @@
+{
+    "name": "sdo-system/leave-monitoring",
+    "description": "Leave monitoring XLSX import support",
+    "require": {
+        "shuchkin/simplexlsx": "^1.1"
+    }
+}

@@ -30,6 +30,12 @@
             transform: translateY(-3px);
         }
 
+        .login-logo{
+        width: 90px;
+        display: block;
+        margin: 0 auto 10px;
+        }
+
         /* Gumamit ng FLEXBOX para sa landscape layout */
         .landscape-content {
             display: flex;
@@ -77,12 +83,6 @@
             color: #666;
             font-size: 11px;
             /* MALIIT NA TEXT */
-        }
-
-        .login-logo{
-        width: 90px;
-        display: block;
-        margin: 0 auto 10px;
         }
 
         /* Input groups - small text */
@@ -183,11 +183,76 @@
 
         /* Message area - small text */
         .message {
-            margin-top: 12px;
-            text-align: center;
-            font-size: 10px;
-            /* MALIIT NA TEXT */
-            min-height: 35px;
+            min-height: 0;
+            margin-bottom: 14px;
+            padding: 0;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: #7f1d1d;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(-8px) scale(0.98);
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .message i {
+            font-size: 16px;
+            color: #dc2626;
+            flex-shrink: 0;
+        }
+
+        .message-visible {
+            min-height: 52px;
+            padding: 12px 14px;
+            border-color: rgba(239, 68, 68, 0.18);
+            background:
+                linear-gradient(135deg, rgba(254, 242, 242, 0.98), rgba(255, 255, 255, 0.92)),
+                radial-gradient(circle at top left, rgba(248, 113, 113, 0.14), transparent 55%);
+            box-shadow: 0 12px 24px rgba(220, 38, 38, 0.12);
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+            animation: errorSlideIn 0.45s ease, errorPulse 1.2s ease 0.45s 1;
+        }
+
+        .message-visible span {
+            text-align: left;
+        }
+
+        @keyframes errorSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-14px) scale(0.96);
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateY(2px) scale(1.01);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes errorPulse {
+            0%,
+            100% {
+                box-shadow: 0 12px 24px rgba(220, 38, 38, 0.12);
+            }
+
+            50% {
+                box-shadow: 0 16px 30px rgba(220, 38, 38, 0.2);
+            }
         }
 
         /* Responsive - kapag naging masyadong maliit ang screen, balik sa vertical */

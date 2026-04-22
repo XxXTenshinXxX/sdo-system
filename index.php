@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+$loginError = $_SESSION['login_error'] ?? '';
+$oldEmail = $_SESSION['old_email'] ?? '';
+
+unset($_SESSION['login_error'], $_SESSION['old_email']);
+?>
 <!DOCTYPE html>
 <html lang="tl">
 <head>
@@ -18,10 +26,17 @@
             <p>Welcome back! Please login to continue.</p>
         </div>
 
+        <div id="message" class="message <?= $loginError ? 'message-visible' : '' ?>">
+            <?php if ($loginError): ?>
+                <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+                <span><?= htmlspecialchars($loginError, ENT_QUOTES, 'UTF-8') ?></span>
+            <?php endif; ?>
+        </div>
+
         <form id="loginForm" method="POST" action="actions/login-process.php">
             <div class="input-group">
                 <label>Email Address</label>
-                <input type="email" name="email" id="email" placeholder="example@email.com" autocomplete="off" required>
+                <input type="email" name="email" id="email" placeholder="Enter your email address" autocomplete="off" value="<?= htmlspecialchars($oldEmail, ENT_QUOTES, 'UTF-8') ?>" required>
             </div>
 
         <div class="input-group">
@@ -41,7 +56,6 @@
 
             <button type="submit" class="login-btn">Login</button>
             
-            <div id="message" class="message"></div>
         </form>
     </div>
 
