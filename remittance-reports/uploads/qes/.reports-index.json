@@ -1,0 +1,31 @@
+{
+    "signature": "d40c3f96f84d9af79a5ed647b4f15576f792958d",
+    "generated_at": "2026-04-24 17:58:04",
+    "reports": [
+        {
+            "section": "qes",
+            "section_label": "QES",
+            "stored_file_name": "1777043861_12646056_SPA_-_012026.pdf",
+            "file_name": "SPA_-_012026.pdf",
+            "header": {
+                "spa_no": "SPA100047440867",
+                "applicable_period": "02-2026",
+                "document_control_number": "140474100010ZLN260000023030",
+                "date_time_generated": "03/12/2026 11:36:29",
+                "date_received": "02/18/2026 08:10:15",
+                "report_type": "Regular",
+                "philhealth_number": "140474100010",
+                "employer_name": "DEPARTMENT OF EDUCATION - DIVISION OF QUEZON CITY",
+                "group_name": "QUIRINO ELEMENTARY SCHOOL",
+                "employer_address": "MISAMIS ST BAGO BANTAY PROJECT 6 QUEZON CITY SECOND DISTRICT",
+                "employer_tin": "000860906",
+                "employer_type": "Government",
+                "employees_reported": "122"
+            },
+            "employee_count": 122,
+            "uploaded_by": "super admin",
+            "uploaded_at": "2026-04-24 17:17:41",
+            "error": ""
+        }
+    ]
+}

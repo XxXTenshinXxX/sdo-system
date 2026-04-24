@@ -23,7 +23,7 @@ if (!isset($_SESSION['user_id'])) {
         margin: 0;
         min-height: 100vh;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: #0f172a;
+        background: #3498db;
         color: #1f2937;
         display: flex;
         align-items: center;
@@ -35,10 +35,10 @@ if (!isset($_SESSION['user_id'])) {
         width: 100%;
         max-width: 920px;
         background: #ffffff;
-        border: 1px solid #dbe4ea;
+        border: 1px solid #cfe3f6;
         border-radius: 24px;
         padding: 32px 28px;
-        box-shadow: 0 18px 38px rgba(15, 23, 42, 0.08);
+        box-shadow: 0 18px 38px rgba(52, 152, 219, 0.18);
     }
 
     .header {
@@ -75,8 +75,8 @@ if (!isset($_SESSION['user_id'])) {
         display: block;
         text-decoration: none;
         color: inherit;
-        background: #f9fbff;
-        border: 1px solid #d9e2ec;
+        background: #f4faff;
+        border: 1px solid #cfe3f6;
         border-radius: 20px;
         padding: 24px 22px;
         transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
@@ -84,8 +84,8 @@ if (!isset($_SESSION['user_id'])) {
 
     .card:hover {
         transform: translateY(-4px);
-        border-color: #bfd3ea;
-        box-shadow: 0 14px 24px rgba(15, 23, 42, 0.08);
+        border-color: #3498db;
+        box-shadow: 0 14px 24px rgba(52, 152, 219, 0.18);
     }
 
     .card-icon {
@@ -97,13 +97,13 @@ if (!isset($_SESSION['user_id'])) {
         justify-content: center;
         font-size: 24px;
         margin-bottom: 16px;
-        background: #dbeafe;
-        color: #1d4ed8;
+        background: #d6eaf8;
+        color: #3498db;
     }
 
     .card.leave .card-icon {
-        background: #dcfce7;
-        color: #047857;
+        background: #d6eaf8;
+        color: #3498db;
     }
 
     .card h2 {

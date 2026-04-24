@@ -1161,6 +1161,28 @@ function moveUploadedFile(array $file, string $targetDirectory, array $allowedEx
     return $safeName;
 }
 
+function buildEmployeeUploadFolder(string $group, string $status): string
+{
+    $normalizedGroup = strtoupper(trim($group));
+    $normalizedStatus = strtoupper(trim($status));
+
+    $allowedFolders = [
+        'ES ACTIVE',
+        'ES INACTIVATION',
+        'ES SEPARATION',
+        'SEC ACTIVE',
+        'SEC INACTIVATION',
+        'SEC SEPARATION',
+    ];
+
+    $folderName = $normalizedGroup . ' ' . $normalizedStatus;
+    if (!in_array($folderName, $allowedFolders, true)) {
+        throw new RuntimeException('Invalid upload folder configuration.');
+    }
+
+    return $folderName;
+}
+
 function normalizeUploadedFiles(array $files): array
 {
     $names = $files['name'] ?? [];
@@ -1196,6 +1218,9 @@ function processEmployeeUploadBatch(mysqli $conn, array $uploadedFiles, string $
     $successCount = 0;
     $errorCount = 0;
     $details = [];
+    $uploadFolder = buildEmployeeUploadFolder($group, $status);
+    $targetDirectory = dirname(__DIR__) . '/uploads/' . $uploadFolder;
+    $relativeDirectory = 'uploads/' . $uploadFolder;
 
     foreach ($uploadedFiles as $file) {
         $originalName = trim((string) ($file['name'] ?? ''));
@@ -1208,11 +1233,11 @@ function processEmployeeUploadBatch(mysqli $conn, array $uploadedFiles, string $
         try {
             $xlsxFileName = moveUploadedFile(
                 $file,
-                dirname(__DIR__) . '/uploads/xlsx',
+                $targetDirectory,
                 ['xlsx']
             );
 
-            $storedRelativePath = 'uploads/xlsx/' . $xlsxFileName;
+            $storedRelativePath = $relativeDirectory . '/' . $xlsxFileName;
             $parsed = parseEmployeeFormXlsx(dirname(__DIR__) . '/' . $storedRelativePath);
             $result = upsertEmployeeUploadRecord(
                 $conn,
