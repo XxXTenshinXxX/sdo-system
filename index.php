@@ -13,6 +13,8 @@
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+        html { zoom: 0.9; }
+
         :root {
             --blue: #2196f3;
             --blue-dark: #1565c0;
@@ -541,10 +543,6 @@
     <div class="hero-blob hero-blob-2"></div>
     <div class="hero-blob hero-blob-3"></div>
     <div class="hero-inner">
-        <div class="hero-badge">
-            <i class="fa-solid fa-shield-halved"></i>
-            Official SDO Management Platform
-        </div>
         <img src="assets/images/SDO-Logo.png" alt="SDO Logo" class="hero-logo">
         <h1>Schools Division Office<br><span>Management System</span></h1>
         <p class="hero-sub">
