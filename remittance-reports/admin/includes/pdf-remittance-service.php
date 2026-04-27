@@ -964,6 +964,14 @@ function remittanceCreateDeleteRequests(string $section, array $fileNames): void
             'section' => $section,
             'requested_count' => $createdCount,
         ]);
+
+        $uploader = remittanceCurrentUserLabel();
+        $secLabel = remittanceSectionLabel($section);
+        userActivityNotify(
+            'request',
+            "{$uploader} requested to delete {$createdCount} report(s) from {$secLabel}.",
+            'admin'
+        );
     }
 
     if ($createdCount === 0) {
@@ -1098,6 +1106,20 @@ function remittanceHandlePdfUpload(string $section): array
                 'section' => $section,
                 'file_name' => (string) ($file['name'] ?? 'report.pdf'),
             ]);
+
+            $uploader = remittanceCurrentUserLabel();
+            $secLabel = remittanceSectionLabel($section);
+            $fileName = (string) ($file['name'] ?? 'report.pdf');
+            
+            // Notify admins and user3 about new uploads from user1/user2
+            if (in_array(remittanceCurrentUserRole(), ['user1', 'user2'], true)) {
+                userActivityNotify(
+                    'upload',
+                    "{$uploader} uploaded a new report: {$fileName} ({$secLabel})",
+                    'admin'
+                );
+            }
+
             $successCount++;
         } catch (Throwable $exception) {
             @unlink($targetPath);

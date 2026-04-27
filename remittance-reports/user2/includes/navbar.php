@@ -30,28 +30,11 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
                     </div>
                 </div>
 
-                <div class="notification-list">
+                <div class="notification-list" id="notificationList">
                     <div class="notification-item">
                         <span class="notification-dot is-info"></span>
                         <div>
-                            <strong>QES uploads are available</strong>
-                            <p>You can review newly uploaded QES PDF reports from this portal.</p>
-                        </div>
-                    </div>
-
-                    <div class="notification-item">
-                        <span class="notification-dot is-success"></span>
-                        <div>
-                            <strong>Employee drill-down is ready</strong>
-                            <p>Use the QES table actions to inspect parsed employee rows per report.</p>
-                        </div>
-                    </div>
-
-                    <div class="notification-item">
-                        <span class="notification-dot is-warn"></span>
-                        <div>
-                            <strong>Access is limited to QES</strong>
-                            <p>This dashboard is configured for QES records only.</p>
+                            <p>Loading notifications...</p>
                         </div>
                     </div>
                 </div>
@@ -101,8 +84,11 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
 <script>
     (function () {
         const heartbeatUrl = '../activity-heartbeat.php';
+        const notificationsUrl = '../notifications-fetch.php';
         const bellButton = document.getElementById('notificationBellBtn');
         const popover = document.getElementById('notificationPopover');
+        const notificationList = document.getElementById('notificationList');
+        const badge = bellButton ? bellButton.querySelector('.nav-icon-badge') : null;
         const profileButton = document.getElementById('profilePanelBtn');
         const profilePopover = document.getElementById('profilePopover');
 
@@ -193,13 +179,69 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
             });
         }
 
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function renderNotifications(notifications) {
+            if (!notificationList) return;
+            if (notifications.length === 0) {
+                notificationList.innerHTML = '<div class="notification-item" style="justify-content:center;padding:30px;color:#64748b;font-size:13px;">No recent notifications</div>';
+                return;
+            }
+
+            notificationList.innerHTML = notifications.map(notif => `
+                <div class="notification-item">
+                    <span class="notification-dot ${notif.dot_class}"></span>
+                    <div>
+                        <strong>${escapeHtml(notif.type.toUpperCase())}</strong>
+                        <p>${escapeHtml(notif.message)}</p>
+                        <small style="color:#94a3b8;font-size:11px;margin-top:4px;display:block;">${escapeHtml(notif.created_at_formatted)}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function refreshNotifications() {
+            fetch(notificationsUrl, {
+                cache: 'no-store',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        renderNotifications(data.notifications);
+                        if (badge) {
+                            if (data.notifications.length > 0) {
+                                badge.textContent = data.notifications.length;
+                                badge.style.display = 'flex';
+                            } else {
+                                badge.style.display = 'none';
+                            }
+                        }
+                    }
+                })
+                .catch(() => {});
+        }
+
         sendHeartbeat();
+        refreshNotifications();
+
         window.setInterval(sendHeartbeat, 30000);
+        window.setInterval(refreshNotifications, 15000);
+
         document.addEventListener('visibilitychange', function () {
             if (document.visibilityState === 'visible') {
                 sendHeartbeat();
+                refreshNotifications();
             }
         });
-        window.addEventListener('focus', sendHeartbeat);
+
+        window.addEventListener('focus', function() {
+            sendHeartbeat();
+            refreshNotifications();
+        });
     }());
 </script>

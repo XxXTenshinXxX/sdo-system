@@ -78,6 +78,29 @@ function userActivityEnsureAuditTable(mysqli $connection): void
     $isReady = true;
 }
 
+function userActivityEnsureNotificationsTable(mysqli $connection): void
+{
+    static $isReady = false;
+
+    if ($isReady) {
+        return;
+    }
+
+    mysqli_query(
+        $connection,
+        "CREATE TABLE IF NOT EXISTS system_notifications (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            target_role VARCHAR(100) NULL,
+            type VARCHAR(50) NOT NULL,
+            message TEXT NOT NULL,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            is_broadcast TINYINT(1) DEFAULT 0
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
+    );
+
+    $isReady = true;
+}
+
 function userActivityNormalizeRole(string $role): string
 {
     return strtolower(trim($role));
@@ -444,4 +467,73 @@ function userActivityFetchCurrentUser(int $userId): ?array
         'is_active' => $isActive,
         'last_seen_label' => $isActive ? 'Receiving live heartbeat' : userActivityRelativeTime($lastActivityAt),
     ];
+}
+
+function userActivityNotify(string $type, string $message, ?string $targetRole = null): void
+{
+    $connection = userActivityGetConnection();
+    userActivityEnsureNotificationsTable($connection);
+
+    $statement = mysqli_prepare(
+        $connection,
+        "INSERT INTO system_notifications (type, message, target_role, is_broadcast) VALUES (?, ?, ?, ?)"
+    );
+
+    if (!$statement) {
+        return;
+    }
+
+    $isBroadcast = $targetRole === null ? 1 : 0;
+    $type = substr($type, 0, 50);
+    $targetRole = $targetRole !== null ? userActivityNormalizeRole($targetRole) : null;
+
+    mysqli_stmt_bind_param($statement, 'sssi', $type, $message, $targetRole, $isBroadcast);
+    mysqli_stmt_execute($statement);
+    mysqli_stmt_close($statement);
+}
+
+function userActivityFetchNotifications(?string $role = null, int $limit = 10): array
+{
+    $connection = userActivityGetConnection();
+    userActivityEnsureNotificationsTable($connection);
+
+    $sql = "SELECT id, type, message, created_at FROM system_notifications ";
+    if ($role !== null) {
+        $normalizedRole = userActivityNormalizeRole($role);
+        // Map common admin roles to search correctly
+        $roleMatch = "target_role = '{$normalizedRole}'";
+        if (in_array($normalizedRole, ['admin', 'user3', 'super admin'], true)) {
+             $roleMatch = "target_role IN ('admin', 'user3', 'super admin')";
+        }
+        $sql .= "WHERE is_broadcast = 1 OR {$roleMatch} ";
+    } else {
+        $sql .= "WHERE is_broadcast = 1 ";
+    }
+    
+    $sql .= "ORDER BY created_at DESC LIMIT " . (int)$limit;
+
+    $result = mysqli_query($connection, $sql);
+    if (!$result) {
+        return [];
+    }
+
+    $notifications = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $notifications[] = [
+            'id' => (int) $row['id'],
+            'type' => (string) $row['type'],
+            'message' => (string) $row['message'],
+            'created_at' => (string) $row['created_at'],
+            'created_at_formatted' => userActivityRelativeTime((string) $row['created_at']),
+            'dot_class' => match (strtolower((string) $row['type'])) {
+                'upload', 'success' => 'is-success',
+                'delete', 'danger', 'error' => 'is-danger',
+                'request', 'warn', 'warning' => 'is-warn',
+                default => 'is-info'
+            }
+        ];
+    }
+
+    mysqli_free_result($result);
+    return $notifications;
 }
