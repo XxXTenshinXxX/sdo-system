@@ -797,12 +797,14 @@ function renderUploadedXlsxPreview(string $relativePath): string
 
     $fullPath = dirname(__DIR__) . DIRECTORY_SEPARATOR . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $relativePath);
     if (!is_file($fullPath)) {
-        return '<p class="preview-empty">The uploaded XLSX file could not be found.</p>';
+        return '<p class="preview-empty">The uploaded XLSX file could not be found.<br><small>Path: ' . htmlspecialchars($fullPath) . '</small></p>';
     }
 
     $xlsx = SimpleXLSX::parse($fullPath);
     if (!$xlsx) {
-        return '<p class="preview-empty">Unable to render the uploaded XLSX preview.</p>';
+        $parseErr = SimpleXLSX::parseError();
+        $zipLoaded = extension_loaded('zip') ? 'Yes' : 'No';
+        return '<p class="preview-empty">Unable to render the uploaded XLSX preview.<br><small>Error: ' . htmlspecialchars($parseErr ?: 'Unknown', ENT_QUOTES, 'UTF-8') . ' | Zip Extension: ' . $zipLoaded . '</small></p>';
     }
 
     $rows = $xlsx->rows();
@@ -1030,7 +1032,9 @@ function renderUploadedEmployeePreview(mysqli $conn, array $record): string
     }
 
     if ($employeeDetails === null) {
-        return '<p class="preview-empty">Unable to render the uploaded XLSX preview.</p>';
+        $parseErr = SimpleXLSX::parseError();
+        $zipLoaded = extension_loaded('zip') ? 'Yes' : 'No';
+        return '<p class="preview-empty">Unable to render the uploaded XLSX preview.<br><small>Error: ' . htmlspecialchars($parseErr ?: 'Unknown', ENT_QUOTES, 'UTF-8') . ' | Zip Extension: ' . $zipLoaded . '</small></p>';
     }
 
     if ($leaveRows === []) {
