@@ -198,8 +198,8 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
                                                 <?php if ($profileImageUrl !== ''): ?>
                                                     <img src="<?= htmlspecialchars($profileImageUrl, ENT_QUOTES, 'UTF-8') ?>" alt="" class="profile-avatar-image" id="profileUploadPreviewImage">
                                                 <?php else: ?>
-                                                    <span id="profileUploadPreviewFallback"><?= htmlspecialchars($profileInitial ?? 'U', ENT_QUOTES, 'UTF-8') ?></span>
-                                                    <img src="" alt="" class="profile-avatar-image" id="profileUploadPreviewImage" hidden>
+                                                    <span id="profileUploadPreviewFallback" style="display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;"><?= htmlspecialchars($profileInitial ?? 'U', ENT_QUOTES, 'UTF-8') ?></span>
+                                                    <img src="" alt="" class="profile-avatar-image" id="profileUploadPreviewImage" style="display: none;">
                                                 <?php endif; ?>
                                             </div>
                                             <label for="profilePictureInput" class="profile-avatar-edit-trigger" title="Change Profile Picture">
@@ -239,14 +239,30 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
                                 </div>
                                 <form method="POST">
                                     <input type="hidden" name="profile_action" value="change_password">
+                                    
                                     <label class="profile-form-label" for="currentPassword">Current password</label>
-                                    <input type="password" id="currentPassword" name="current_password" class="profile-form-input" required>
+                                    <div class="password-toggle-wrapper">
+                                        <input type="password" id="currentPassword" name="current_password" class="profile-form-input" required>
+                                        <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </div>
 
                                     <label class="profile-form-label" for="newPassword">New password</label>
-                                    <input type="password" id="newPassword" name="new_password" class="profile-form-input" required>
+                                    <div class="password-toggle-wrapper">
+                                        <input type="password" id="newPassword" name="new_password" class="profile-form-input" required>
+                                        <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </div>
 
                                     <label class="profile-form-label" for="confirmPassword">Confirm new password</label>
-                                    <input type="password" id="confirmPassword" name="confirm_password" class="profile-form-input" required>
+                                    <div class="password-toggle-wrapper">
+                                        <input type="password" id="confirmPassword" name="confirm_password" class="profile-form-input" required>
+                                        <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </div>
 
                                     <button type="submit" class="profile-action-btn profile-action-btn-secondary" style="margin-top:14px;">
                                         <i class="fa-solid fa-key"></i>
@@ -309,13 +325,14 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
             border-radius: 50%;
             background: linear-gradient(135deg, <?= $themeColorLight ?>, #eff6ff);
             color: <?= $themeColor ?>;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 800;
             overflow: hidden;
             border: 4px solid #ffffff;
+            position: relative;
         }
 
         .profile-avatar-edit-trigger {
@@ -480,6 +497,38 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
             background: linear-gradient(135deg, #0f766e, #14b8a6);
             box-shadow: 0 14px 24px rgba(20, 184, 166, 0.18);
         }
+
+        .password-toggle-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .password-toggle-wrapper .profile-form-input {
+            padding-right: 46px;
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            right: 8px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .password-toggle-btn:hover {
+            color: <?= $themeColor ?>;
+            background: rgba(59, 130, 246, 0.08);
+        }
     </style>
     <script>
         (function () {
@@ -511,6 +560,25 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
                 if (fallbackLabel) {
                     fallbackLabel.hidden = true;
                 }
+            });
+
+            // Password Toggle Logic
+            const toggleBtns = document.querySelectorAll('.password-toggle-btn');
+            toggleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('input');
+                    const icon = this.querySelector('i');
+                    
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
             });
         }());
     </script>
