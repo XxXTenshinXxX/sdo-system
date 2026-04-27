@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 session_start();
 require_once __DIR__ . '/includes/user-activity.php';
 
@@ -23,5 +23,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_destroy();
 }
 
-header('Location: index.php');
+header('Location: login.php');
 exit;

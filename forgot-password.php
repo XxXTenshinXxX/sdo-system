@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tl">
 <head>
     <meta charset="UTF-8">
@@ -244,7 +244,7 @@
                     <button type="submit" class="reset-btn">Send Reset Link</button>
 
                     <div class="back-login">
-                        <a href="index.php">Back to Login</a>
+                        <a href="login.php">Back to Login</a>
                     </div>
                     
                     <div id="message" class="message"></div>
