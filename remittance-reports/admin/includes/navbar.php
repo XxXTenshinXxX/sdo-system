@@ -38,6 +38,9 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
                         </div>
                     </div>
                 </div>
+                <div class="notification-popover-foot">
+                    <a href="notifications.php">See all notifications</a>
+                </div>
             </div>
         </div>
         <span class="nav-chip <?= htmlspecialchars($roleClass ?? '', ENT_QUOTES, 'UTF-8') ?>">

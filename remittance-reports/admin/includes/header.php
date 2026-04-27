@@ -834,5 +834,24 @@
             padding: 0 18px 18px;
         }
     }
+    .notification-popover-foot {
+        padding: 12px;
+        border-top: 1px solid #e2e8f0;
+        text-align: center;
+        background: rgba(248, 250, 252, 0.8);
+    }
+
+    .notification-popover-foot a {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .notification-popover-foot a:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+    }
 </style>
 </head>
