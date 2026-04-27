@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../../includes/user-activity.php';
 
 final class RemittanceParseLimitException extends RuntimeException
 {
@@ -63,6 +64,40 @@ function remittanceCurrentUploaderLabel(): string
     }
 
     return 'Unknown uploader';
+}
+
+function remittanceCurrentUserRole(): string
+{
+    return strtolower(trim((string) ($_SESSION['role'] ?? '')));
+}
+
+function remittanceCurrentUserId(): int
+{
+    return (int) ($_SESSION['user_id'] ?? 0);
+}
+
+function remittanceCurrentUserLabel(): string
+{
+    $preferredKeys = ['full_name', 'name', 'username', 'user_name', 'email'];
+    foreach ($preferredKeys as $key) {
+        $value = trim((string) ($_SESSION[$key] ?? ''));
+        if ($value !== '') {
+            return $value;
+        }
+    }
+
+    $role = trim((string) ($_SESSION['role'] ?? ''));
+    $userId = remittanceCurrentUserId();
+    if ($role !== '' && $userId > 0) {
+        return $role . ' #' . $userId;
+    }
+
+    return $role !== '' ? $role : 'Unknown user';
+}
+
+function remittanceUserRequiresDeleteApproval(): bool
+{
+    return in_array(remittanceCurrentUserRole(), ['user1', 'user2'], true);
 }
 
 function remittanceConsumeFlash(): array
@@ -428,6 +463,48 @@ function remittanceReportsIndexPath(string $section): string
     return remittanceUploadsDirectory($section) . '/.reports-index.json';
 }
 
+function remittanceDeleteRequestsPath(): string
+{
+    return dirname(__DIR__, 2) . '/uploads/.delete-requests.json';
+}
+
+function remittanceReadDeleteRequests(): array
+{
+    $path = remittanceDeleteRequestsPath();
+    if (!is_file($path)) {
+        return [];
+    }
+
+    $payload = json_decode((string) file_get_contents($path), true);
+    return is_array($payload) ? array_values(array_filter($payload, 'is_array')) : [];
+}
+
+function remittanceWriteDeleteRequests(array $requests): void
+{
+    file_put_contents(remittanceDeleteRequestsPath(), json_encode(array_values($requests), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+}
+
+function remittanceDeleteRequestStatusLabel(string $status): string
+{
+    return match ($status) {
+        'approved' => 'Approved',
+        'rejected' => 'Rejected',
+        default => 'Pending',
+    };
+}
+
+function remittanceCountPendingDeleteRequests(): int
+{
+    $count = 0;
+    foreach (remittanceReadDeleteRequests() as $request) {
+        if ((string) ($request['status'] ?? 'pending') === 'pending') {
+            $count++;
+        }
+    }
+
+    return $count;
+}
+
 function remittanceSummarizeReport(array $report, string $fallbackPdfPath = ''): array
 {
     $normalized = remittanceNormalizeStoredReport($report, $fallbackPdfPath !== '' ? $fallbackPdfPath : ((string) ($report['stored_file_name'] ?? $report['file_name'] ?? 'report.pdf')));
@@ -571,6 +648,22 @@ function remittanceFetchStoredReportSummaries(string $section): array
     remittanceWriteReportsIndex($section, $pdfFiles, $reports);
 
     return $reports;
+}
+
+function remittanceFindStoredReportSummary(string $section, string $fileName): ?array
+{
+    $cleanFileName = basename(trim($fileName));
+    if ($cleanFileName === '') {
+        return null;
+    }
+
+    foreach (remittanceFetchStoredReportSummaries($section) as $report) {
+        if ((string) ($report['stored_file_name'] ?? '') === $cleanFileName) {
+            return $report;
+        }
+    }
+
+    return null;
 }
 
 function remittanceLoadReportFromPdf(string $pdfPath, string $section): array
@@ -788,18 +881,16 @@ function remittanceNormalizeUploadedFiles(array $files): array
     return $normalized;
 }
 
-function remittanceDeleteStoredReport(string $section, string $fileName): void
+function remittanceDeleteStoredReportFiles(string $section, string $fileName): bool
 {
     $cleanFileName = basename(trim($fileName));
     if ($cleanFileName === '' || strtolower(pathinfo($cleanFileName, PATHINFO_EXTENSION)) !== 'pdf') {
-        remittanceSetFlash('Invalid PDF file selected for deletion.', 'error');
-        remittanceRedirectToCurrentPage();
+        return false;
     }
 
     $pdfPath = remittanceUploadsDirectory($section) . '/' . $cleanFileName;
     if (!is_file($pdfPath)) {
-        remittanceSetFlash('The selected PDF report could not be found.', 'error');
-        remittanceRedirectToCurrentPage();
+        return false;
     }
 
     $metadataPath = remittanceMetadataPath($pdfPath);
@@ -808,12 +899,121 @@ function remittanceDeleteStoredReport(string $section, string $fileName): void
         @unlink($metadataPath);
     }
 
+    return true;
+}
+
+function remittanceCreateDeleteRequests(string $section, array $fileNames): void
+{
+    $requests = remittanceReadDeleteRequests();
+    $createdCount = 0;
+    $skippedCount = 0;
+
+    foreach ($fileNames as $fileName) {
+        $cleanFileName = basename(trim((string) $fileName));
+        if ($cleanFileName === '' || strtolower(pathinfo($cleanFileName, PATHINFO_EXTENSION)) !== 'pdf') {
+            $skippedCount++;
+            continue;
+        }
+
+        $report = remittanceFindStoredReportSummary($section, $cleanFileName);
+        if ($report === null) {
+            $skippedCount++;
+            continue;
+        }
+
+        $hasPendingRequest = false;
+        foreach ($requests as $existingRequest) {
+            if (
+                (string) ($existingRequest['status'] ?? 'pending') === 'pending'
+                && (string) ($existingRequest['section'] ?? '') === $section
+                && (string) ($existingRequest['report_file'] ?? '') === $cleanFileName
+            ) {
+                $hasPendingRequest = true;
+                break;
+            }
+        }
+
+        if ($hasPendingRequest) {
+            $skippedCount++;
+            continue;
+        }
+
+        $requests[] = [
+            'id' => uniqid('delreq_', true),
+            'section' => $section,
+            'section_label' => remittanceSectionLabel($section),
+            'report_file' => $cleanFileName,
+            'report_name' => (string) ($report['file_name'] ?? remittanceDisplayFileName($cleanFileName)),
+            'uploaded_by' => (string) ($report['uploaded_by'] ?? 'Unknown uploader'),
+            'requested_by' => remittanceCurrentUserLabel(),
+            'requested_by_role' => trim((string) ($_SESSION['role'] ?? '')),
+            'requested_by_user_id' => remittanceCurrentUserId(),
+            'requested_at' => date('Y-m-d H:i:s'),
+            'status' => 'pending',
+            'reviewed_by' => '',
+            'reviewed_by_role' => '',
+            'reviewed_by_user_id' => 0,
+            'reviewed_at' => '',
+        ];
+        $createdCount++;
+    }
+
+    if ($createdCount > 0) {
+        remittanceWriteDeleteRequests($requests);
+        userActivityLogEvent('request_delete_report', 'Requested report deletion approval', [
+            'section' => $section,
+            'requested_count' => $createdCount,
+        ]);
+    }
+
+    if ($createdCount === 0) {
+        remittanceSetFlash('No new delete requests were created. The selected reports may already have pending requests.', 'warning');
+        remittanceRedirectToCurrentPage();
+    }
+
+    $message = $createdCount === 1
+        ? '1 delete request was sent for approval.'
+        : $createdCount . ' delete requests were sent for approval.';
+
+    if ($skippedCount > 0) {
+        $message .= ' ' . $skippedCount . ' item(s) were skipped because they were invalid or already pending.';
+    }
+
+    remittanceSetFlash($message, 'success');
+    remittanceRedirectToCurrentPage();
+}
+
+function remittanceDeleteStoredReport(string $section, string $fileName): void
+{
+    $cleanFileName = basename(trim($fileName));
+    if ($cleanFileName === '' || strtolower(pathinfo($cleanFileName, PATHINFO_EXTENSION)) !== 'pdf') {
+        remittanceSetFlash('Invalid PDF file selected for deletion.', 'error');
+        remittanceRedirectToCurrentPage();
+    }
+
+    if (remittanceUserRequiresDeleteApproval()) {
+        remittanceCreateDeleteRequests($section, [$cleanFileName]);
+    }
+
+    if (!remittanceDeleteStoredReportFiles($section, $cleanFileName)) {
+        remittanceSetFlash('The selected PDF report could not be found.', 'error');
+        remittanceRedirectToCurrentPage();
+    }
+
+    userActivityLogEvent('delete_report', 'Deleted a remittance report', [
+        'section' => $section,
+        'file_name' => $cleanFileName,
+    ]);
     remittanceSetFlash('PDF report deleted successfully.', 'success');
     remittanceRedirectToCurrentPage();
 }
 
 function remittanceDeleteStoredReports(string $section, array $fileNames): void
 {
+    if (remittanceUserRequiresDeleteApproval()) {
+        remittanceCreateDeleteRequests($section, $fileNames);
+    }
+
     $deletedCount = 0;
 
     foreach ($fileNames as $fileName) {
@@ -822,18 +1022,9 @@ function remittanceDeleteStoredReports(string $section, array $fileNames): void
             continue;
         }
 
-        $pdfPath = remittanceUploadsDirectory($section) . '/' . $cleanFileName;
-        if (!is_file($pdfPath)) {
-            continue;
+        if (remittanceDeleteStoredReportFiles($section, $cleanFileName)) {
+            $deletedCount++;
         }
-
-        $metadataPath = remittanceMetadataPath($pdfPath);
-        @unlink($pdfPath);
-        if (is_file($metadataPath)) {
-            @unlink($metadataPath);
-        }
-
-        $deletedCount++;
     }
 
     if ($deletedCount === 0) {
@@ -841,6 +1032,10 @@ function remittanceDeleteStoredReports(string $section, array $fileNames): void
         remittanceRedirectToCurrentPage();
     }
 
+    userActivityLogEvent('bulk_delete_reports', 'Deleted multiple remittance reports', [
+        'section' => $section,
+        'deleted_count' => $deletedCount,
+    ]);
     remittanceSetFlash($deletedCount === 1 ? '1 PDF report deleted successfully.' : $deletedCount . ' PDF reports deleted successfully.', 'success');
     remittanceRedirectToCurrentPage();
 }
@@ -899,6 +1094,10 @@ function remittanceHandlePdfUpload(string $section): array
         try {
             $parsed = remittanceParsePdfReport($targetPath, $section);
             remittanceWriteMetadata($targetPath, $parsed);
+            userActivityLogEvent('upload_report', 'Uploaded a remittance report', [
+                'section' => $section,
+                'file_name' => (string) ($file['name'] ?? 'report.pdf'),
+            ]);
             $successCount++;
         } catch (Throwable $exception) {
             @unlink($targetPath);
@@ -917,5 +1116,70 @@ function remittanceHandlePdfUpload(string $section): array
     }
 
     remittanceSetFlash(implode(' ', $errorMessages) ?: 'No files were uploaded.', 'error');
+    remittanceRedirectToCurrentPage();
+}
+
+function remittanceHandleDeleteRequestReview(): array
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST' || (string) ($_POST['form_action'] ?? '') !== 'review_delete_request') {
+        return remittanceConsumeFlash();
+    }
+
+    $decision = strtolower(trim((string) ($_POST['decision'] ?? '')));
+    $requestId = trim((string) ($_POST['request_id'] ?? ''));
+    if ($requestId === '' || !in_array($decision, ['approve', 'reject'], true)) {
+        remittanceSetFlash('Invalid delete request action.', 'error');
+        remittanceRedirectToCurrentPage();
+    }
+
+    $requests = remittanceReadDeleteRequests();
+    $foundIndex = null;
+    foreach ($requests as $index => $request) {
+        if ((string) ($request['id'] ?? '') === $requestId) {
+            $foundIndex = $index;
+            break;
+        }
+    }
+
+    if ($foundIndex === null) {
+        remittanceSetFlash('Delete request not found.', 'error');
+        remittanceRedirectToCurrentPage();
+    }
+
+    $request = $requests[$foundIndex];
+    if ((string) ($request['status'] ?? 'pending') !== 'pending') {
+        remittanceSetFlash('This delete request was already reviewed.', 'warning');
+        remittanceRedirectToCurrentPage();
+    }
+
+    $requests[$foundIndex]['status'] = $decision === 'approve' ? 'approved' : 'rejected';
+    $requests[$foundIndex]['reviewed_by'] = remittanceCurrentUserLabel();
+    $requests[$foundIndex]['reviewed_by_role'] = trim((string) ($_SESSION['role'] ?? ''));
+    $requests[$foundIndex]['reviewed_by_user_id'] = remittanceCurrentUserId();
+    $requests[$foundIndex]['reviewed_at'] = date('Y-m-d H:i:s');
+
+    if ($decision === 'approve') {
+        if (!remittanceDeleteStoredReportFiles((string) ($request['section'] ?? ''), (string) ($request['report_file'] ?? ''))) {
+            remittanceSetFlash('The requested PDF report could not be found. The request was left pending.', 'error');
+            remittanceRedirectToCurrentPage();
+        }
+
+        userActivityLogEvent('approve_delete_request', 'Approved report deletion request', [
+            'section' => (string) ($request['section'] ?? ''),
+            'file_name' => (string) ($request['report_file'] ?? ''),
+            'requested_by' => (string) ($request['requested_by'] ?? ''),
+        ]);
+        remittanceWriteDeleteRequests($requests);
+        remittanceSetFlash('Delete request approved and report deleted successfully.', 'success');
+        remittanceRedirectToCurrentPage();
+    }
+
+    userActivityLogEvent('reject_delete_request', 'Rejected report deletion request', [
+        'section' => (string) ($request['section'] ?? ''),
+        'file_name' => (string) ($request['report_file'] ?? ''),
+        'requested_by' => (string) ($request['requested_by'] ?? ''),
+    ]);
+    remittanceWriteDeleteRequests($requests);
+    remittanceSetFlash('Delete request rejected successfully.', 'success');
     remittanceRedirectToCurrentPage();
 }

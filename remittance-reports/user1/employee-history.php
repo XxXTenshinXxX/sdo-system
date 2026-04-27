@@ -9,13 +9,13 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/includes/pdf-remittance-service.php';
+require_once __DIR__ . '/../admin/includes/pdf-remittance-service.php';
 require_once __DIR__ . '/../../includes/user-activity.php';
 
 $section = trim((string) ($_GET['section'] ?? ''));
 $philHealthNo = trim((string) ($_GET['philhealth_no'] ?? ''));
 
-if (!in_array($section, ['es-shs', 'qes'], true) || $philHealthNo === '') {
+if (!in_array($section, ['es-shs'], true) || $philHealthNo === '') {
     http_response_code(400);
     echo json_encode(['error' => 'Invalid request']);
     exit;

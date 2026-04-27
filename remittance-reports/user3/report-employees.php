@@ -6,15 +6,17 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/includes/pdf-remittance-service.php';
+require_once __DIR__ . '/../admin/includes/pdf-remittance-service.php';
 require_once __DIR__ . '/../../includes/user-activity.php';
 
 $userRole = $_SESSION['role'] ?? 'staff';
 $normalizedUserRole = strtolower(trim($userRole));
-$profileInitial = $normalizedUserRole === 'super admin'
+$isSuperAdminRole = in_array($normalizedUserRole, ['super admin', 'super_admin', 'superadmin'], true);
+$isAdminLikeRole = in_array($normalizedUserRole, ['admin', 'user3', 'admin backup', 'backup admin'], true);
+$profileInitial = $isSuperAdminRole
     ? 'SA'
     : strtoupper(substr(trim($userRole), 0, 1));
-$roleClass = $normalizedUserRole === 'super admin' ? 'role-super-admin' : '';
+$roleClass = $isSuperAdminRole || $isAdminLikeRole ? 'role-super-admin' : '';
 
 $section = trim((string) ($_GET['section'] ?? ''));
 $fileName = trim((string) ($_GET['file'] ?? ''));

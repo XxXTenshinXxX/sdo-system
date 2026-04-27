@@ -4,8 +4,9 @@
             <img src="../../assets/images/SDO-Logo.png" alt="SDO Logo" class="sidebar-brand-logo">
             <div class="sidebar-brand-copy">
                 <strong>School Division Office</strong>
-                <span>PhilHealth Remittance</span>
-                <span></span>
+                <span>REMITTANCE UNIT</span>
+                <span>(PhilHealth)</span>
+                <span>ADMIN PORTAL</span>
             </div>
             <br>
         </div>
@@ -27,6 +28,11 @@
             <a href="users.php" class="<?= ($activePage ?? '') === 'users' ? 'active' : '' ?>">
                 <i class="fa-solid fa-users"></i>
                 <span>Users</span>
+            </a>
+            <?php $pendingDeleteRequests = function_exists('remittanceCountPendingDeleteRequests') ? remittanceCountPendingDeleteRequests() : 0; ?>
+            <a href="delete-requests.php" class="<?= ($activePage ?? '') === 'delete-requests' ? 'active' : '' ?>">
+                <i class="fa-solid fa-trash-can-arrow-up"></i>
+                <span>Delete Requests<?php if ($pendingDeleteRequests > 0): ?> (<?= $pendingDeleteRequests ?>)<?php endif; ?></span>
             </a>
             <a href="../../select-dashboard.php">
                 <i class="fa-solid fa-arrow-left"></i>

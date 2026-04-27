@@ -5,6 +5,10 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit;
 }
+
+require_once __DIR__ . '/includes/user-activity.php';
+userActivityMarkCurrentUser();
+userActivityLogPageVisit('system selector');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -285,6 +289,33 @@ if (!isset($_SESSION['user_id'])) {
                 closeLogoutModal();
             }
         });
+    </script>
+    <script>
+        (function () {
+            const heartbeatUrl = 'remittance-reports/activity-heartbeat.php';
+
+            function sendHeartbeat() {
+                fetch(heartbeatUrl, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    cache: 'no-store',
+                    keepalive: true,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                }).catch(function () {
+                });
+            }
+
+            sendHeartbeat();
+            window.setInterval(sendHeartbeat, 30000);
+            document.addEventListener('visibilitychange', function () {
+                if (document.visibilityState === 'visible') {
+                    sendHeartbeat();
+                }
+            });
+            window.addEventListener('focus', sendHeartbeat);
+        }());
     </script>
 </body>
 </html>

@@ -1,6 +1,20 @@
 <?php
 session_start();
 require_once '../config/db.php';
+require_once '../includes/user-activity.php';
+
+function resolveDashboardByRole(string $role): string
+{
+    $normalizedRole = strtolower(trim($role));
+
+    return match ($normalizedRole) {
+        'super admin' => '../select-dashboard.php',
+        'admin', 'user3', 'admin backup', 'backup admin' => '../remittance-reports/user3/dashboard.php',
+        'user1' => '../remittance-reports/user1/dashboard.php',
+        'user2' => '../remittance-reports/user2/dashboard.php',
+        default => '../index.php',
+    };
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = strtolower(trim($_POST['email'] ?? ''));
@@ -30,22 +44,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($user) {
         if (!empty($user['password']) && password_verify($password, $user['password'])) {
+            $userRole = trim((string) ($user['role'] ?? ''));
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['email'] = $user['email'];
-            $_SESSION['role'] = $user['role'];
+            $_SESSION['role'] = $userRole;
             unset($_SESSION['login_error'], $_SESSION['old_email']);
+            userActivityMarkCurrentUser(true);
+            userActivityLogEvent('login', 'Logged in successfully', ['redirect' => resolveDashboardByRole($userRole)]);
 
-            switch ($user['role']) {
-                case 'super admin':
-                    header('Location: ../select-dashboard.php');
-                    exit;
-                case 'admin':
-                    header('Location: ../admin-dashboard.php');
-                    exit;
-                default:
-                    header('Location: ../user-dashboard.php');
-                    exit;
+            $redirectPath = resolveDashboardByRole($userRole);
+            if ($redirectPath === '../index.php') {
+                unset($_SESSION['user_id'], $_SESSION['email'], $_SESSION['role']);
+                $_SESSION['login_error'] = 'Your account role has no assigned dashboard yet.';
+                $_SESSION['old_email'] = $email;
+                header('Location: ../index.php');
+                exit;
             }
+
+            header('Location: ' . $redirectPath);
+            exit;
         } else {
             $_SESSION['login_error'] = 'Invalid password.';
         }

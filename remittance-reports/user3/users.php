@@ -11,10 +11,11 @@ require_once __DIR__ . '/../../includes/user-activity.php';
 $userRole = $_SESSION['role'] ?? 'staff';
 $normalizedUserRole = strtolower(trim($userRole));
 $isSuperAdminRole = in_array($normalizedUserRole, ['super admin', 'super_admin', 'superadmin'], true);
+$isAdminLikeRole = in_array($normalizedUserRole, ['admin', 'user3', 'admin backup', 'backup admin'], true);
 $profileInitial = $isSuperAdminRole
     ? 'SA'
     : strtoupper(substr(trim($userRole), 0, 1));
-$roleClass = $isSuperAdminRole ? 'role-super-admin' : '';
+$roleClass = $isSuperAdminRole || $isAdminLikeRole ? 'role-super-admin' : '';
 
 $pageTitle = 'PhilHealth Remittance Users';
 $activePage = 'users';

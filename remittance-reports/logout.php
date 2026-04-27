@@ -1,5 +1,9 @@
 <?php
 session_start();
+require_once __DIR__ . '/../includes/user-activity.php';
+
+userActivityLogEvent('logout', 'Logged out from remittance reports');
+userActivityMarkUserOffline();
 
 $_SESSION = [];
 

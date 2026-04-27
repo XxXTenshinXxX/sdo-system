@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Forgot Password - Reset Your Account</title>
+    <link rel="icon" type="image/png" href="assets/images/SDO-Logo.png">
     <style>
         * {
             margin: 0;
@@ -76,6 +77,12 @@
         .logo {
             text-align: center;
             margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 90px;
+            height: auto;
+            margin-bottom: 10px;
         }
 
         .logo h1 {
@@ -223,6 +230,7 @@
             <!-- RIGHT SIDE: Forgot Password Form -->
             <div class="right-side">
                 <div class="logo">
+                    <img src="assets/images/SDO-Logo.png" alt="SDO Logo">
                     <h1>Reset Password</h1>
                     <p>Enter your email address to reset your password</p>
                 </div>

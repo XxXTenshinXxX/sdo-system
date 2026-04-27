@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/includes/pdf-remittance-service.php';
+require_once __DIR__ . '/../admin/includes/pdf-remittance-service.php';
 require_once __DIR__ . '/../../includes/user-activity.php';
 
 $section = trim((string) ($_GET['section'] ?? ''));

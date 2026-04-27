@@ -1,6 +1,6 @@
 {
     "signature": "f9b7012d0ae319a6c7851496d29bf0d0e8083fe8",
-    "generated_at": "2026-04-24 17:58:25",
+    "generated_at": "2026-04-25 16:01:30",
     "reports": [
         {
             "section": "es-shs",
@@ -23,7 +23,7 @@
                 "employees_reported": "11,235"
             },
             "employee_count": 11180,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -48,7 +48,7 @@
                 "employees_reported": "11,212"
             },
             "employee_count": 11157,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -73,7 +73,7 @@
                 "employees_reported": "11,191"
             },
             "employee_count": 11136,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -98,7 +98,7 @@
                 "employees_reported": "11,152"
             },
             "employee_count": 11098,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -123,7 +123,7 @@
                 "employees_reported": "11,033"
             },
             "employee_count": 10986,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -148,7 +148,7 @@
                 "employees_reported": "10,947"
             },
             "employee_count": 10902,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -173,7 +173,7 @@
                 "employees_reported": "10,904"
             },
             "employee_count": 10859,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -198,7 +198,7 @@
                 "employees_reported": "10,745"
             },
             "employee_count": 10703,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -223,7 +223,7 @@
                 "employees_reported": "10,740"
             },
             "employee_count": 10698,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -248,7 +248,7 @@
                 "employees_reported": "10,733"
             },
             "employee_count": 10691,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -273,7 +273,7 @@
                 "employees_reported": "10,702"
             },
             "employee_count": 10661,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -298,7 +298,7 @@
                 "employees_reported": "10,651"
             },
             "employee_count": 10610,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -323,7 +323,7 @@
                 "employees_reported": "10,595"
             },
             "employee_count": 10554,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -348,7 +348,7 @@
                 "employees_reported": "10,552"
             },
             "employee_count": 10511,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -373,7 +373,7 @@
                 "employees_reported": "10,538"
             },
             "employee_count": 10497,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -398,7 +398,7 @@
                 "employees_reported": "10,515"
             },
             "employee_count": 10474,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -423,7 +423,7 @@
                 "employees_reported": "10,501"
             },
             "employee_count": 10460,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -448,7 +448,7 @@
                 "employees_reported": "10,470"
             },
             "employee_count": 10429,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -473,7 +473,7 @@
                 "employees_reported": "10,435"
             },
             "employee_count": 10394,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -498,7 +498,7 @@
                 "employees_reported": "10,434"
             },
             "employee_count": 10393,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -523,7 +523,7 @@
                 "employees_reported": "10,424"
             },
             "employee_count": 10383,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -548,7 +548,7 @@
                 "employees_reported": "10,422"
             },
             "employee_count": 10381,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -573,7 +573,7 @@
                 "employees_reported": "10,399"
             },
             "employee_count": 10360,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -598,7 +598,7 @@
                 "employees_reported": "10,305"
             },
             "employee_count": 10267,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -623,7 +623,7 @@
                 "employees_reported": "10,257"
             },
             "employee_count": 10219,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -648,7 +648,7 @@
                 "employees_reported": "10,021"
             },
             "employee_count": 9984,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -673,7 +673,7 @@
                 "employees_reported": "10,021"
             },
             "employee_count": 9984,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -698,7 +698,7 @@
                 "employees_reported": "10,020"
             },
             "employee_count": 9983,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -723,7 +723,7 @@
                 "employees_reported": "9,912"
             },
             "employee_count": 9876,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -748,7 +748,7 @@
                 "employees_reported": "9,907"
             },
             "employee_count": 9872,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -773,7 +773,7 @@
                 "employees_reported": "9,898"
             },
             "employee_count": 9863,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -798,7 +798,7 @@
                 "employees_reported": "9,852"
             },
             "employee_count": 9818,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -823,7 +823,7 @@
                 "employees_reported": "9,784"
             },
             "employee_count": 9751,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -848,7 +848,7 @@
                 "employees_reported": "9,730"
             },
             "employee_count": 9698,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -873,7 +873,7 @@
                 "employees_reported": "9,696"
             },
             "employee_count": 9664,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -898,7 +898,7 @@
                 "employees_reported": "9,678"
             },
             "employee_count": 9646,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -923,7 +923,7 @@
                 "employees_reported": "9,605"
             },
             "employee_count": 9574,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -948,7 +948,7 @@
                 "employees_reported": "9,545"
             },
             "employee_count": 9515,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -973,7 +973,7 @@
                 "employees_reported": "9,480"
             },
             "employee_count": 9452,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -998,7 +998,7 @@
                 "employees_reported": "9,283"
             },
             "employee_count": 9257,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1023,7 +1023,7 @@
                 "employees_reported": "9,278"
             },
             "employee_count": 9252,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1048,7 +1048,7 @@
                 "employees_reported": "9,362"
             },
             "employee_count": 9336,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1073,7 +1073,7 @@
                 "employees_reported": "9,346"
             },
             "employee_count": 9321,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1098,7 +1098,7 @@
                 "employees_reported": "8,676"
             },
             "employee_count": 8651,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1123,7 +1123,7 @@
                 "employees_reported": "9,297"
             },
             "employee_count": 9273,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1148,7 +1148,7 @@
                 "employees_reported": "8,618"
             },
             "employee_count": 8594,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1173,7 +1173,7 @@
                 "employees_reported": "9,279"
             },
             "employee_count": 9256,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1198,7 +1198,7 @@
                 "employees_reported": "8,610"
             },
             "employee_count": 8587,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1223,7 +1223,7 @@
                 "employees_reported": "8,625"
             },
             "employee_count": 8602,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1248,7 +1248,7 @@
                 "employees_reported": "9,268"
             },
             "employee_count": 9245,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -1273,7 +1273,7 @@
                 "employees_reported": "9,250"
             },
             "employee_count": 9227,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -1298,7 +1298,7 @@
                 "employees_reported": "9,225"
             },
             "employee_count": 9202,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1323,7 +1323,7 @@
                 "employees_reported": "9,139"
             },
             "employee_count": 9116,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1348,7 +1348,7 @@
                 "employees_reported": "9,110"
             },
             "employee_count": 9088,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1373,7 +1373,7 @@
                 "employees_reported": "9,104"
             },
             "employee_count": 9082,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1398,7 +1398,7 @@
                 "employees_reported": "9,065"
             },
             "employee_count": 9044,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1423,7 +1423,7 @@
                 "employees_reported": "9,122"
             },
             "employee_count": 9101,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1448,7 +1448,7 @@
                 "employees_reported": "9,096"
             },
             "employee_count": 9075,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1473,7 +1473,7 @@
                 "employees_reported": "9,056"
             },
             "employee_count": 9037,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1498,7 +1498,7 @@
                 "employees_reported": "9,013"
             },
             "employee_count": 8995,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1523,7 +1523,7 @@
                 "employees_reported": "8,994"
             },
             "employee_count": 8976,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1548,7 +1548,7 @@
                 "employees_reported": "8,983"
             },
             "employee_count": 8965,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -1573,7 +1573,7 @@
                 "employees_reported": "8,946"
             },
             "employee_count": 8928,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -1598,7 +1598,7 @@
                 "employees_reported": "8,851"
             },
             "employee_count": 8833,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1623,7 +1623,7 @@
                 "employees_reported": "8,824"
             },
             "employee_count": 8807,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1648,7 +1648,7 @@
                 "employees_reported": "8,808"
             },
             "employee_count": 8791,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1673,7 +1673,7 @@
                 "employees_reported": "8,779"
             },
             "employee_count": 8763,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1698,7 +1698,7 @@
                 "employees_reported": "8,729"
             },
             "employee_count": 8713,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1723,7 +1723,7 @@
                 "employees_reported": "8,721"
             },
             "employee_count": 8705,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1748,7 +1748,7 @@
                 "employees_reported": "8,717"
             },
             "employee_count": 8701,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1773,7 +1773,7 @@
                 "employees_reported": "8,692"
             },
             "employee_count": 8676,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1798,7 +1798,7 @@
                 "employees_reported": "8,647"
             },
             "employee_count": 8631,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1823,7 +1823,7 @@
                 "employees_reported": "8,672"
             },
             "employee_count": 8658,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -1848,7 +1848,7 @@
                 "employees_reported": "8,625"
             },
             "employee_count": 8612,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:12",
             "error": ""
         },
@@ -1873,7 +1873,7 @@
                 "employees_reported": "8,509"
             },
             "employee_count": 8496,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1898,7 +1898,7 @@
                 "employees_reported": "8,501"
             },
             "employee_count": 8488,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1923,7 +1923,7 @@
                 "employees_reported": "8,493"
             },
             "employee_count": 8480,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1948,7 +1948,7 @@
                 "employees_reported": "8,503"
             },
             "employee_count": 8490,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1973,7 +1973,7 @@
                 "employees_reported": "8,447"
             },
             "employee_count": 8434,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -1998,7 +1998,7 @@
                 "employees_reported": "8,437"
             },
             "employee_count": 8424,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:11",
             "error": ""
         },
@@ -2023,7 +2023,7 @@
                 "employees_reported": "8,426"
             },
             "employee_count": 8413,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -2048,7 +2048,7 @@
                 "employees_reported": "8,390"
             },
             "employee_count": 8377,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -2073,7 +2073,7 @@
                 "employees_reported": "8,351"
             },
             "employee_count": 8339,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         },
@@ -2098,7 +2098,7 @@
                 "employees_reported": "8,308"
             },
             "employee_count": 8296,
-            "uploaded_by": "super admin",
+            "uploaded_by": "user1",
             "uploaded_at": "2026-04-24 17:07:10",
             "error": ""
         }

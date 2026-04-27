@@ -6,20 +6,18 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/includes/pdf-remittance-service.php';
+require_once __DIR__ . '/../admin/includes/pdf-remittance-service.php';
 require_once __DIR__ . '/../../includes/user-activity.php';
 
-$userRole = $_SESSION['role'] ?? 'staff';
+$userRole = $_SESSION['role'] ?? 'user1';
 $normalizedUserRole = strtolower(trim($userRole));
-$profileInitial = $normalizedUserRole === 'super admin'
-    ? 'SA'
-    : strtoupper(substr(trim($userRole), 0, 1));
+$profileInitial = strtoupper(substr(trim($userRole), 0, 1));
 $roleClass = $normalizedUserRole === 'super admin' ? 'role-super-admin' : '';
 
 $section = trim((string) ($_GET['section'] ?? ''));
 $fileName = trim((string) ($_GET['file'] ?? ''));
 
-if (!in_array($section, ['es-shs', 'qes'], true)) {
+if (!in_array($section, ['es-shs'], true)) {
     header('Location: dashboard.php');
     exit;
 }
@@ -28,7 +26,7 @@ try {
     $report = remittanceFetchSingleReport($section, $fileName);
 } catch (Throwable $exception) {
     remittanceSetFlash($exception->getMessage(), 'error');
-    header('Location: ' . ($section === 'es-shs' ? 'es-shs.php' : 'qes.php'));
+    header('Location: es-shs.php');
     exit;
 }
 
@@ -97,7 +95,7 @@ $activePage = $section;
                     <div class="panel">
                         <div class="section-header">
                             <h3>Report Details</h3>
-                            <a href="<?= htmlspecialchars($section === 'es-shs' ? 'es-shs.php' : 'qes.php', ENT_QUOTES, 'UTF-8') ?>">Back to <?= htmlspecialchars(remittanceSectionLabel($section), ENT_QUOTES, 'UTF-8') ?></a>
+                            <a href="es-shs.php">Back to <?= htmlspecialchars(remittanceSectionLabel($section), ENT_QUOTES, 'UTF-8') ?></a>
                         </div>
 
                         <div class="report-detail-grid">
@@ -268,7 +266,7 @@ $activePage = $section;
                 </div>
             </div>
 
-            <?php include __DIR__ . '/includes/footer.php'; ?>
+            <?php include __DIR__ . '/../admin/includes/footer.php'; ?>
         </main>
     </div>
 
