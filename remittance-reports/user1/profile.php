@@ -110,6 +110,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         user1ProfileRedirectWithFlash('Profile picture updated successfully.', 'success');
     }
 
+    if ($formAction === 'update_email') {
+        $newEmail = trim((string) ($_POST['new_email'] ?? ''));
+
+        if ($newEmail === '') {
+            user1ProfileRedirectWithFlash('Please enter a valid email address.', 'error');
+        }
+
+        if (!filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+            user1ProfileRedirectWithFlash('The email address format is invalid.', 'error');
+        }
+
+        // Check if email is already taken
+        $checkStmt = mysqli_prepare($connection, "SELECT id FROM users WHERE email = ? AND id != ? LIMIT 1");
+        if ($checkStmt) {
+            mysqli_stmt_bind_param($checkStmt, 'si', $newEmail, $currentUserId);
+            mysqli_stmt_execute($checkStmt);
+            mysqli_stmt_store_result($checkStmt);
+            if (mysqli_stmt_num_rows($checkStmt) > 0) {
+                mysqli_stmt_close($checkStmt);
+                user1ProfileRedirectWithFlash('This email address is already in use by another account.', 'error');
+            }
+            mysqli_stmt_close($checkStmt);
+        }
+
+        $updateStmt = mysqli_prepare($connection, "UPDATE users SET email = ? WHERE id = ?");
+        if ($updateStmt) {
+            mysqli_stmt_bind_param($updateStmt, 'si', $newEmail, $currentUserId);
+            if (mysqli_stmt_execute($updateStmt)) {
+                $_SESSION['email'] = $newEmail; // Update session
+                userActivityLogEvent('email_update', 'Updated email address', ['old_email' => $currentProfile['email'], 'new_email' => $newEmail]);
+                user1ProfileRedirectWithFlash('Email address updated successfully.', 'success');
+            }
+            mysqli_stmt_close($updateStmt);
+        }
+
+        user1ProfileRedirectWithFlash('Failed to update email address. Please try again.', 'error');
+    }
+
     if ($formAction === 'change_password') {
         $currentPassword = (string) ($_POST['current_password'] ?? '');
         $newPassword = (string) ($_POST['new_password'] ?? '');
@@ -267,6 +305,22 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
                                     <button type="submit" class="profile-action-btn profile-action-btn-secondary" style="margin-top:14px;">
                                         <i class="fa-solid fa-key"></i>
                                         <span>Update Password</span>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="panel" style="padding:20px; border:1px solid #e2e8f0; margin-top:20px;">
+                                <div class="section-header" style="margin-bottom:14px;">
+                                    <h3>Email Address</h3>
+                                </div>
+                                <form method="POST">
+                                    <input type="hidden" name="profile_action" value="update_email">
+                                    <label class="profile-form-label" for="newEmail">Current / New Email Address</label>
+                                    <input type="email" id="newEmail" name="new_email" class="profile-form-input" value="<?= htmlspecialchars($currentProfile['email'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
+                                    
+                                    <button type="submit" class="profile-action-btn" style="margin-top:14px; background: <?= $themeGradient ?>;">
+                                        <i class="fa-solid fa-envelope"></i>
+                                        <span>Update Email</span>
                                     </button>
                                 </form>
                             </div>
