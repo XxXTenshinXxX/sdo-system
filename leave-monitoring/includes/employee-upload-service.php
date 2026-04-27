@@ -767,7 +767,7 @@ function extractLeaveFooterDetails(array $rows): array
     $certifiedCorrect = extractFooterValue($rows, ['certified correct'], static function (array $rows, array $cell): string {
         $line1 = normalizeSheetValue($rows[$cell['row'] + 1][$cell['col']] ?? '');
         $line2 = normalizeSheetValue($rows[$cell['row'] + 2][$cell['col']] ?? '');
-        return trim(implode("\n", array_filter([$line1, $line2], static fn (string $value): bool => $value !== '')));
+        return trim(implode("\n", array_filter([$line1, $line2], static fn(string $value): bool => $value !== '')));
     });
 
     $date = formatFooterDate(extractFooterDate($rows));
@@ -796,11 +796,7 @@ function renderUploadedXlsxPreview(string $relativePath): string
     }
 
     $fullPath = dirname(__DIR__) . DIRECTORY_SEPARATOR . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $relativePath);
-    $fileExists = is_file($fullPath) ? 'Yes' : 'No';
-    $isReadable = is_readable($fullPath) ? 'Yes' : 'No';
-    $size = $fileExists === 'Yes' ? filesize($fullPath) : 0;
-
-    if ($fileExists === 'No') {
+    if (!is_file($fullPath)) {
         return '<p class="preview-empty">The uploaded XLSX file could not be found.<br><small>Path: ' . htmlspecialchars($fullPath) . '</small></p>';
     }
 
@@ -808,7 +804,7 @@ function renderUploadedXlsxPreview(string $relativePath): string
     if (!$xlsx) {
         $parseErr = SimpleXLSX::parseError();
         $zipLoaded = extension_loaded('zip') ? 'Yes' : 'No';
-        return '<p class="preview-empty">Unable to render the uploaded XLSX preview.<br><small>Error: ' . htmlspecialchars($parseErr ?: 'Unknown', ENT_QUOTES, 'UTF-8') . ' | Zip: ' . $zipLoaded . ' | Readable: ' . $isReadable . ' | Size: ' . $size . '</small></p>';
+        return '<p class="preview-empty">Unable to render the uploaded XLSX preview.<br><small>Error: ' . htmlspecialchars($parseErr ?: 'Unknown', ENT_QUOTES, 'UTF-8') . ' | Zip Extension: ' . $zipLoaded . '</small></p>';
     }
 
     $rows = $xlsx->rows();
@@ -1038,13 +1034,7 @@ function renderUploadedEmployeePreview(mysqli $conn, array $record): string
     if ($employeeDetails === null) {
         $parseErr = SimpleXLSX::parseError();
         $zipLoaded = extension_loaded('zip') ? 'Yes' : 'No';
-        // Check first file for diagnostics
-        $tempSize = 0;
-        if (!empty($relativePaths)) {
-            $tempFullPath = dirname(__DIR__) . DIRECTORY_SEPARATOR . str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $relativePaths[0]);
-            $tempSize = is_file($tempFullPath) ? filesize($tempFullPath) : 0;
-        }
-        return '<p class="preview-empty">Unable to render the uploaded XLSX preview.<br><small>Error: ' . htmlspecialchars($parseErr ?: 'Unknown', ENT_QUOTES, 'UTF-8') . ' | Zip: ' . $zipLoaded . ' | Size: ' . $tempSize . '</small></p>';
+        return '<p class="preview-empty">Unable to render the uploaded XLSX preview.<br><small>Error: ' . htmlspecialchars($parseErr ?: 'Unknown', ENT_QUOTES, 'UTF-8') . ' | Zip Extension: ' . $zipLoaded . '</small></p>';
     }
 
     if ($leaveRows === []) {
@@ -1291,8 +1281,8 @@ function processEmployeeUploadBatch(mysqli $conn, array $uploadedFiles, string $
     if ($successCount > 0 && $errorCount === 0) {
         return [
             $successCount === 1
-                ? '1 XLSX file uploaded and parsed successfully.'
-                : $successCount . ' XLSX files uploaded and parsed successfully.',
+            ? '1 XLSX file uploaded and parsed successfully.'
+            : $successCount . ' XLSX files uploaded and parsed successfully.',
             'success',
             $details,
         ];
@@ -1308,8 +1298,8 @@ function processEmployeeUploadBatch(mysqli $conn, array $uploadedFiles, string $
 
     return [
         $errorCount === 1
-            ? 'Upload failed for 1 XLSX file.'
-            : 'Upload failed for ' . $errorCount . ' XLSX files.',
+        ? 'Upload failed for 1 XLSX file.'
+        : 'Upload failed for ' . $errorCount . ' XLSX files.',
         'error',
         $details,
     ];
@@ -1374,9 +1364,9 @@ function handleBulkEmployeeDelete(mysqli $conn): array
     }
 
     $recordIds = array_values(array_unique(array_filter(array_map(
-        static fn (mixed $value): int => (int) $value,
+        static fn(mixed $value): int => (int) $value,
         $recordIds
-    ), static fn (int $value): bool => $value > 0)));
+    ), static fn(int $value): bool => $value > 0)));
 
     if ($recordIds === []) {
         return ['Please select at least one valid employee record to delete.', 'error'];
@@ -1420,8 +1410,8 @@ function handleBulkEmployeeDelete(mysqli $conn): array
 
     return [
         $deletedCount === 1
-            ? '1 employee record deleted successfully.'
-            : $deletedCount . ' employee records deleted successfully.',
+        ? '1 employee record deleted successfully.'
+        : $deletedCount . ' employee records deleted successfully.',
         'success'
     ];
 }
@@ -1469,8 +1459,8 @@ function handleManualEmployeeCreate(mysqli $conn): array
 
     return [
         ($result['action'] ?? 'inserted') === 'updated'
-            ? 'Existing employee record updated successfully.'
-            : 'Employee record added successfully.',
+        ? 'Existing employee record updated successfully.'
+        : 'Employee record added successfully.',
         'success'
     ];
 }

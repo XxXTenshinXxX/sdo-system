@@ -7,6 +7,9 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 require_once __DIR__ . '/employee-upload-service.php';
+require_once __DIR__ . '/user-activity.php';
+
+userActivityMarkCurrentUser();
 
 $userRole = $_SESSION['role'] ?? 'staff';
 $normalizedUserRole = strtolower(trim($userRole));
