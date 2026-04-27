@@ -1,3 +1,4 @@
+<?php
 date_default_timezone_set('Asia/Manila');
 
 if ($_SERVER['SERVER_NAME'] === 'localhost' || $_SERVER['SERVER_ADDR'] === '127.0.0.1') {
