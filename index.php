@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDO Management System – Schools Division Office</title>
+    <title>Schools Division Office - Remittance & Leave Management System</title>
     <meta name="description" content="Official management system of the Schools Division Office. Manage PhilHealth remittances and employee leave monitoring in one secure platform.">
     <link rel="icon" type="image/png" href="assets/images/SDO-Logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
