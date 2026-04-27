@@ -427,6 +427,88 @@
         }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
+        /* ── TEAM ── */
+        .team { background: var(--gray-50); }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 56px auto 0;
+        }
+
+        .team-card {
+            background: #fff;
+            border: 1.5px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: 36px 28px 32px;
+            text-align: center;
+            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+        }
+        .team-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(33,150,243,0.35); }
+
+        .team-card-concept .team-avatar-ring { background: linear-gradient(135deg, #fff9c4, #ffe082); }
+        .team-card-concept .team-avatar { background: linear-gradient(135deg, #f59e0b, #d97706); }
+
+        .team-avatar-ring {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue-light), #bbdefb);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            padding: 4px;
+        }
+
+        .team-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #fff;
+        }
+
+        .team-role-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            background: #fff9c4;
+            color: #92400e;
+            border: 1px solid #fde68a;
+            margin-bottom: 12px;
+        }
+        .team-role-badge.team-role-dev {
+            background: var(--blue-light);
+            color: var(--blue-mid);
+            border-color: #bfdbfe;
+        }
+
+        .team-name {
+            font-size: 19px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: 10px;
+        }
+
+        .team-desc {
+            font-size: 13.5px;
+            color: var(--gray-600);
+            line-height: 1.65;
+        }
+
+
         /* ── RESPONSIVE ── */
         @media (max-width: 640px) {
             nav { padding: 0 20px; }
@@ -560,6 +642,50 @@
     </div>
 </section>
 
+<!-- TEAM -->
+<section class="team" id="team">
+    <div class="text-center">
+        <div class="section-label mx-auto" style="justify-content:center;">The People Behind It</div>
+        <h2 class="section-title">Concept &amp; <span>Development Team</span></h2>
+        <p class="section-sub mx-auto">Built by dedicated individuals committed to improving administrative efficiency in the Schools Division Office.</p>
+    </div>
+
+    <div class="team-grid">
+        <div class="team-card team-card-concept reveal">
+            <div class="team-avatar-ring">
+                <div class="team-avatar">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+            </div>
+            <div class="team-role-badge">Conceptualized By</div>
+            <h3 class="team-name">Marivel E. Unciano</h3>
+            <p class="team-desc">The vision and concept behind this system — providing a smarter way to manage remittance and leave records for the Schools Division Office.</p>
+        </div>
+
+        <div class="team-card reveal" style="transition-delay:0.1s">
+            <div class="team-avatar-ring">
+                <div class="team-avatar">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+            </div>
+            <div class="team-role-badge team-role-dev">Lead Developer</div>
+            <h3 class="team-name">Ronil John Gadot</h3>
+            <p class="team-desc">Designed and developed the system architecture, user interface, and core functionality of the SDO Management System.</p>
+        </div>
+
+        <div class="team-card reveal" style="transition-delay:0.2s">
+            <div class="team-avatar-ring">
+                <div class="team-avatar">
+                    <i class="fa-solid fa-laptop-code"></i>
+                </div>
+            </div>
+            <div class="team-role-badge team-role-dev">Developer</div>
+            <h3 class="team-name">Romeo Romero Jr.</h3>
+            <p class="team-desc">Contributed to the development and implementation of key system features and functionality.</p>
+        </div>
+    </div>
+</section>
+
 <!-- CTA -->
 <section class="cta">
     <div class="cta-inner">
@@ -575,7 +701,8 @@
 <!-- FOOTER -->
 <footer>
     <img src="assets/images/SDO-Logo.png" alt="SDO Logo" class="footer-logo">
-    <p><strong>Schools Division Office – Management System</strong></p>
+    <p><strong>Schools Division Office – Remittance &amp; Leave Management System</strong></p>
+    <p style="margin-top:10px;">Conceptualized by <strong style="color:rgba(255,255,255,0.8);">Marivel E. Unciano</strong> &nbsp;|&nbsp; Developed by <strong style="color:rgba(255,255,255,0.8);">Ronil John Gadot</strong> &amp; <strong style="color:rgba(255,255,255,0.8);">Romeo Romero Jr.</strong></p>
     <p style="margin-top:8px;">© <?= date('Y') ?> Schools Division Office. All rights reserved.</p>
 </footer>
 
