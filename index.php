@@ -443,11 +443,11 @@
     <a class="nav-brand" href="#">
         <img src="assets/images/SDO-Logo.png" alt="SDO Logo">
         <div class="nav-brand-text">
-            SDO System
-            <small>Schools Division Office</small>
+            Schools Division Office
+            <small>Remittance & Leave Management System</small></small>
         </div>
     </a>
-    <a class="nav-login" href="index.php" id="nav-login-btn">
+    <a class="nav-login" href="login.php" id="nav-login-btn">
         <i class="fa-solid fa-right-to-bracket"></i>
         Login
     </a>
@@ -469,7 +469,7 @@
             A centralized, secure platform for managing PhilHealth remittances and employee leave monitoring — built for efficiency and reliability.
         </p>
         <div class="hero-actions">
-            <a href="index.php" class="btn-primary" id="hero-login-btn">
+            <a href="login.php" class="btn-primary" id="hero-login-btn">
                 <i class="fa-solid fa-right-to-bracket"></i>
                 Access System
             </a>
@@ -565,7 +565,7 @@
     <div class="cta-inner">
         <h2>Ready to Get Started?</h2>
         <p>Login to your account and access the full suite of SDO management tools. Authorized personnel only.</p>
-        <a href="index.php" class="btn-white" id="cta-login-btn">
+        <a href="login.php" class="btn-white" id="cta-login-btn">
             <i class="fa-solid fa-right-to-bracket"></i>
             Login to Your Account
         </a>
