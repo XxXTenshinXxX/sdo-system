@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 require_once __DIR__ . '/employee-upload-service.php';
-require_once __DIR__ . '/user-activity.php';
+require_once dirname(__DIR__, 2) . '/includes/user-activity.php';
 
 userActivityMarkCurrentUser();
 
