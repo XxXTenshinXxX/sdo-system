@@ -14,6 +14,13 @@ $isSuperAdminRole = in_array($normalizedUserRole, ['super admin', 'super_admin',
 $isAdminLikeRole = in_array($normalizedUserRole, ['admin', 'user3', 'admin backup', 'backup admin'], true);
 $profileInitial = $isSuperAdminRole ? 'SA' : strtoupper(substr(trim($userRole), 0, 1));
 $roleClass = $isSuperAdminRole || $isAdminLikeRole ? 'role-super-admin' : '';
+
+// Theme Configuration
+$themeColor = '#1d4ed8';
+$themeColorLight = '#dbeafe';
+$themeGradient = 'linear-gradient(135deg, #1d4ed8, #2563eb)';
+$themeSurface = 'radial-gradient(circle at top right, rgba(37, 99, 235, 0.08), transparent 34%)';
+
 $pageTitle = 'Admin Profile';
 $activePage = '';
 
@@ -189,10 +196,10 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
                                         <div class="profile-avatar-container">
                                             <div class="profile-avatar-main" id="profileUploadAvatarPreview">
                                                 <?php if ($profileImageUrl !== ''): ?>
-                                                    <img src="<?= htmlspecialchars($profileImageUrl, ENT_QUOTES, 'UTF-8') ?>" alt="Profile picture" class="profile-avatar-image" id="profileUploadPreviewImage">
+                                                    <img src="<?= htmlspecialchars($profileImageUrl, ENT_QUOTES, 'UTF-8') ?>" alt="" class="profile-avatar-image" id="profileUploadPreviewImage">
                                                 <?php else: ?>
                                                     <span id="profileUploadPreviewFallback"><?= htmlspecialchars($profileInitial ?? 'U', ENT_QUOTES, 'UTF-8') ?></span>
-                                                    <img src="" alt="Profile preview" class="profile-avatar-image" id="profileUploadPreviewImage" hidden>
+                                                    <img src="" alt="" class="profile-avatar-image" id="profileUploadPreviewImage" hidden>
                                                 <?php endif; ?>
                                             </div>
                                             <label for="profilePictureInput" class="profile-avatar-edit-trigger" title="Change Profile Picture">
@@ -270,7 +277,7 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
 
         .profile-tool-panel {
             background:
-                radial-gradient(circle at top right, rgba(59, 130, 246, 0.08), transparent 34%),
+                <?= $themeSurface ?>,
                 linear-gradient(180deg, #ffffff, #f8fbff);
         }
 
@@ -300,8 +307,8 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-            color: #1d4ed8;
+            background: linear-gradient(135deg, <?= $themeColorLight ?>, #eff6ff);
+            color: <?= $themeColor ?>;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -317,7 +324,7 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
             right: 4px;
             width: 36px;
             height: 36px;
-            background: #1d4ed8;
+            background: <?= $themeColor ?>;
             color: #ffffff;
             border-radius: 50%;
             display: flex;
@@ -332,7 +339,8 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
 
         .profile-avatar-edit-trigger:hover {
             transform: scale(1.1);
-            background: #2563eb;
+            background: <?= $themeColor ?>;
+            filter: brightness(1.1);
         }
 
         .profile-info-display h3 {
@@ -378,8 +386,8 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
             width: 48px;
             height: 48px;
             border-radius: 14px;
-            background: #dbeafe;
-            color: #1d4ed8;
+            background: <?= $themeColorLight ?>;
+            color: <?= $themeColor ?>;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -402,7 +410,7 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
             margin-top: 6px;
             font-size: 12px;
             font-weight: 700;
-            color: #3b82f6;
+            color: <?= $themeColor ?>;
             background: #ffffff;
             padding: 4px 12px;
             border-radius: 999px;
@@ -437,7 +445,7 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
 
         .profile-form-input:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: <?= $themeColor ?>;
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
 
@@ -460,7 +468,7 @@ $profileImageUrl = $profileImage !== '' ? '../../' . ltrim($profileImage, '/') :
             padding: 10px 16px;
             border: none;
             border-radius: 12px;
-            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            background: <?= $themeGradient ?>;
             color: #ffffff;
             font-size: 14px;
             font-weight: 700;
