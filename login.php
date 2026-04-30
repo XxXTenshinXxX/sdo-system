@@ -56,8 +56,24 @@ unset($_SESSION['login_error'], $_SESSION['old_email']);
             </div>
 
             <button type="submit" class="login-btn">Login</button>
-            
+
         </form>
+
+        <div style="text-align:center; margin-top:14px;">
+            <a href="index.php" style="
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 11px;
+                font-weight: 600;
+                color: #3498db;
+                text-decoration: none;
+                transition: color 0.2s;
+            " onmouseover="this.style.color='#2980b9'" onmouseout="this.style.color='#3498db'">
+                <i class="fa-solid fa-arrow-left" style="font-size:10px;"></i>
+                Go Back to Homepage
+            </a>
+        </div>
     </div>
 
     <script>
